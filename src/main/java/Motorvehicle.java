@@ -53,6 +53,14 @@ public abstract class Motorvehicle implements Movable {
         color = clr;
     }
 
+    public void setPosition(Point pos) {
+        position = pos;
+    }
+
+    public void setDirection(int dir) {
+        direction = Math.floorMod(dir, 4);
+    }
+
     // Engine start/stop
     public void startEngine() {
         currentSpeed = 0.1;
