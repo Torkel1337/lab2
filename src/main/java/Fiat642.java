@@ -4,16 +4,13 @@ public class Fiat642 extends FlatbedTruck implements CarTransport {
 
     private static final double OPEN_ANGLE = 0;
     private static final double CLOSED_ANGLE = 45;
-    FixedStack<Car> stack;
-    // private Stack<Car> storedCars;
+    FixedDeque<Car> loadedCars;
 
     public Fiat642() {
         super(2, Color.green, 200, "Fiat642", 0, new Point(0, 0));
         int size;
 
-        FixedStack<Car> stack = new FixedStack<>(3);
-
-
+        loadedCars = new FixedDeque<>(3);
     }
 
     @Override
@@ -31,6 +28,10 @@ public class Fiat642 extends FlatbedTruck implements CarTransport {
         return CLOSED_ANGLE;
     }
 
+    public boolean contains(Car car) {
+        return loadedCars.contains(car);
+    }
+
     public boolean carIsNear(Car car) {
         double xDiff = this.getPosition().x() - car.getPosition().x();
         double yDiff = this.getPosition().y() - car.getPosition().y();
@@ -42,23 +43,24 @@ public class Fiat642 extends FlatbedTruck implements CarTransport {
     @Override
     public void loadCar(Car car) {
         if (this.getBedAngle() == getMinAngle() && carIsNear(car)) {
-            stack.push(car);
+            loadedCars.addFirst(car);
             car.setPosition(this.getPosition());
             car.stopEngine();
         }
     }
 
     @Override
-    public void unloadCar() {
+    public Car unloadCar() {
         if (this.getBedAngle() == getMinAngle()) {
-            stack.pop();
+            return loadedCars.removeFirst();
         }
+        return null;
     }
 
     @Override
     public void move() {
         super.move();
-        stack.forEach(c -> c.setPosition(this.getPosition()));
+        loadedCars.forEach(c -> c.setPosition(this.getPosition()));
     }
 }
 

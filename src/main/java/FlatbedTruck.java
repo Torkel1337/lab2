@@ -1,12 +1,15 @@
 import java.awt.Color;
 
 public abstract class FlatbedTruck extends Motorvehicle implements Flatbed {
-    //private boolean isStopped;
-    protected double angleSpeed = 5;
+    
     protected double bedAngle = 0;
 
     public FlatbedTruck(int nrDoors, Color color, double enginePower, String modelName, int direction, Point position) {
         super(nrDoors, color, enginePower, modelName, direction, position);
+    }
+
+    boolean canMove() {
+        return bedAngle == 0;
     }
 
     boolean canRaiseBed() {
@@ -14,7 +17,7 @@ public abstract class FlatbedTruck extends Motorvehicle implements Flatbed {
     }
 
     boolean canLowerBed() {
-        return bedAngle < getMinAngle() && this.getCurrentSpeed() == 0;
+        return bedAngle > getMinAngle() && this.getCurrentSpeed() == 0;
     }
 
     protected abstract double getMinAngle();
@@ -41,8 +44,15 @@ public abstract class FlatbedTruck extends Motorvehicle implements Flatbed {
 
     @Override
     public void gas(double amount) {
-        if (getBedAngle() == 0) {
+        if (canMove()) {
             super.gas(amount);
+        }
+    }
+
+    @Override
+    public void startEngine() {
+        if (canMove()) {
+            super.startEngine();
         }
     }
 }
