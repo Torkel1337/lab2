@@ -1,7 +1,7 @@
 import java.awt.Color;
 
 public abstract class FlatbedTruck extends Motorvehicle implements Flatbed {
-    
+
     protected double bedAngle = 0;
 
     public FlatbedTruck(int nrDoors, Color color, double enginePower, String modelName, int direction, Point position) {

@@ -44,13 +44,13 @@ public abstract class Motorvehicle implements Movable {
         return color;
     }
 
-    public Point getPosition() {
-        return position;
-    }
-
     // Setters
     public void setColor(Color clr) {
         color = clr;
+    }
+
+    public Point getPosition() {
+        return position;
     }
 
     public void setPosition(Point pos) {

@@ -1,0 +1,9 @@
+Skapa en ny klass CarModel. CarModel hanterar allt modellrelaterat och tar över visst ansvar från CarController och CarView.
+
+Skapa en ny klass CarApp. CarApp tar ansvaret från CarController att starta applikationen.
+
+Införa ett observerpattern på modellen.
+
+Separera modellogik från DrawPanel, bör till exempel inte hålla koll på positioner.
+
+Överför ansvaret att implementera världen från DrawPanel till modellen. I slutändan ska endast DrawPanel måla.
